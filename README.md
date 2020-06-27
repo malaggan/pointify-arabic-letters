@@ -3,9 +3,7 @@
 ```sh
 conan install .. --build missing
 
-cmake .. -GNinja \
--DCMAKE_CXX_COMPILER=/usr/local/bin/g++-9   \
--DCMAKE_C_COMPILER=/usr/local/bin/gcc-9
+cmake .. -GNinja 
 ```
 
 # Example
@@ -15,3 +13,4 @@ echo 'محمد' | ./bin/pointify-arabic
 
 ݦݗݥڐ
 ```
+
