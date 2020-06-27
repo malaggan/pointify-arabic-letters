@@ -68,6 +68,24 @@ std::map<char32_t, std::vector<char32_t>> variants = {
      {U'\U000006CF' /* (ۏ) */, U'\U000006CB' /* (ۋ) */, U'\U000006CA' /* (ۊ) */,
       U'\U000008AB' /* (ࢫ) */}}};
 
+
+std::map<char32_t, char32_t> depointify_map = {{U'ذ', U'د'},
+                                               {U'ز', U'ر'},
+                                               {U'ض', U'ص'},
+                                               {U'ظ', U'ط'},
+                                               {U'غ', U'ع'},
+                                               {U'ة', U'ه'},
+                                               {U'ب', U'ٮ'},
+                                               {U'ت', U'ٮ'},
+                                               {U'ث', U'ٮ'},
+                                               {U'ف', U'ڡ'},
+                                               {U'ق', U'ٯ'},
+                                               {U'ن', U'ں'},
+                                               {U'ي', U'ى'},
+                                               {U'ش', U'س'},
+                                               {U'ج', U'ح'},
+                                               {U'خ', U'ح'}};
+
 int main() {
     using namespace std;
 
@@ -82,6 +100,10 @@ int main() {
     u32string u32output;
     
     for (char32_t input_char : u32input) {
+        if (depointify_map.count(input_char)) {
+            input_char = depointify_map.at(input_char);
+        }        
+        
         char32_t output_char = input_char;
         if (variants.count(input_char)) {
             const vector<char32_t> &variants = ::variants.at(input_char);
