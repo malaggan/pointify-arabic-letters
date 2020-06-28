@@ -51,8 +51,7 @@ int main() {
     std::mt19937 gen(rd());
     setlocale(LC_ALL, "");
 
-    std::transform(std::istreambuf_iterator<wchar_t>{std::wcin}, std::istreambuf_iterator<wchar_t>{},
-                   std::ostreambuf_iterator<wchar_t>{std::wcout},
+    std::transform(std::istreambuf_iterator<wchar_t>{std::wcin}, {}, std::ostreambuf_iterator<wchar_t>{std::wcout},
                    [&gen](wchar_t c) { return add_random_dots(gen, remove_dots(c)); });
     return 0;
 }
