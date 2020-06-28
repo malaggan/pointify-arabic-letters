@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <codecvt>
 #include <iostream>
+#include <iterator>
 #include <locale>
 #include <map>
 #include <random>
@@ -46,18 +47,15 @@ wchar_t remove_dots(wchar_t c) {
     return c;
 }
 
-std::wstring add_random_dots(std::mt19937 &gen, const std::wstring &in) {
-    std::wstring out;
-    for (wchar_t c : in) { out += add_random_dots(gen, remove_dots(c)); }
-    return out;
-}
-
 int main() {
     init();
 
     std::random_device rd;
     std::mt19937 gen(rd());
     setlocale(LC_ALL, "");
-    std::wcout << add_random_dots(gen, {std::istreambuf_iterator{std::wcin.rdbuf()}, {}});
+
+    std::transform(std::istreambuf_iterator<wchar_t>{std::wcin}, std::istreambuf_iterator<wchar_t>{},
+                   std::ostreambuf_iterator<wchar_t>{std::wcout},
+                   [&gen](wchar_t c) { return add_random_dots(gen, remove_dots(c)); });
     return 0;
 }
