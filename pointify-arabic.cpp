@@ -32,24 +32,24 @@ void init() {
                 {u'و', {u'ۏ', u'ۋ', u'ۊ', u'ࢫ'}}};
 }
 
-wchar_t pointify_u16char(std::mt19937 &gen, wchar_t input_char) {
-    if (variants.count(input_char)) {
-        const std::vector<wchar_t> &input_char_variants = variants.at(input_char);
-        int index = std::uniform_int_distribution<>(0, input_char_variants.size())(gen);
-        if (index < input_char_variants.size()) { return input_char_variants.at(index); }
+wchar_t add_random_dots(std::mt19937 &gen, wchar_t c) {
+    if (variants.count(c)) {
+        const std::vector<wchar_t> &input_char_variants = variants.at(c);
+        int i = std::uniform_int_distribution<>(0, input_char_variants.size())(gen);
+        if (i < input_char_variants.size()) { return input_char_variants.at(i); }
     }
-    return input_char;
+    return c;
 }
 
-wchar_t depointify_u16char(wchar_t input_char) {
-    if (depointify_map.count(input_char)) { return depointify_map.at(input_char); }
-    return input_char;
+wchar_t remove_dots(wchar_t c) {
+    if (depointify_map.count(c)) { return depointify_map.at(c); }
+    return c;
 }
 
-std::wstring pointify_wstring(std::mt19937 &gen, const std::wstring &u16input) {
-    std::wstring u16output;
-    for (wchar_t input_char : u16input) { u16output += pointify_u16char(gen, depointify_u16char(input_char)); }
-    return u16output;
+std::wstring add_random_dots(std::mt19937 &gen, const std::wstring &in) {
+    std::wstring out;
+    for (wchar_t c : in) { out += add_random_dots(gen, remove_dots(c)); }
+    return out;
 }
 
 int main() {
@@ -58,6 +58,6 @@ int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
     setlocale(LC_ALL, "");
-    std::wcout << pointify_wstring(gen, {std::istreambuf_iterator{std::wcin.rdbuf()}, {}});
+    std::wcout << add_random_dots(gen, {std::istreambuf_iterator{std::wcin.rdbuf()}, {}});
     return 0;
 }
