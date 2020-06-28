@@ -1,8 +1,5 @@
 #include <algorithm>
-#include <codecvt>
 #include <iostream>
-#include <iterator>
-#include <locale>
 #include <map>
 #include <random>
 #include <vector>
