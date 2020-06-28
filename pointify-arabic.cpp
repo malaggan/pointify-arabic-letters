@@ -57,7 +57,7 @@ int main() {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    setlocale(LC_ALL, "en_US.UTF-8");
+    setlocale(LC_ALL, "");
     std::wcout << pointify_wstring(gen, {std::istreambuf_iterator{std::wcin.rdbuf()}, {}});
     return 0;
 }
