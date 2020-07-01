@@ -1,14 +1,15 @@
 # How to build
 
 ```sh
-conan install .. --build missing
-
-cmake .. -GNinja 
+mkdir build
+cd build
+cmake ..
 ```
 
 # Example
 
 ```
+cd build
 echo 'محمد' | ./bin/pointify-arabic
 
 ݦݗݥڐ
